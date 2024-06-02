@@ -6,7 +6,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: echo "Testy testy testy. Nie robimy nic prócz echo by nic nie rozsypać po drodze"
-      - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
       - run: echo "Branch to ${{ github.ref }} a repozytorium to ${{ github.repository }}."
       - name: Oto kod w repozytorium
         uses: actions/checkout@v4
+      - name: Test z użyciem pytest
+        run: |
+              pip install pytest pytest-cov
+              pytest app.py --doctest-modules --junitxml=junit/test-results.xml --cov=com --cov-report=xml --cov-report=html
